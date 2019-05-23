@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="environmentModel" type="environmentModelType"/>
+
+  <xs:complexType name="environmentModelType">
+    <xs:sequence>
+      <xs:element name="container" type="containerType" minOccurs="0"/>
+      <xs:element name="distribution" type="distributionType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="containerType" abstract="true">
+    <xs:sequence>
+      <xs:element name="deployments">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="deployment" type="xs:IDREF" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="deploymentType" abstract="true">
+    <xs:sequence>
+      <xs:element name="contextRoot" type="xs:ID"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="concreteDeploymentType">
+    <xs:complexContent>
+      <xs:extension base="deploymentType">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="concreteContainerType">
+    <xs:complexContent>
+      <xs:extension base="containerType">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="distributionType">
+    <xs:sequence>
+      <xs:element name="deployments">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="deployment" type="deploymentType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="mainTest">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+
